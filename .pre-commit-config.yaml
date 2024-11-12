@@ -3,7 +3,7 @@ default_language_version:
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: "v4.5.0"
+    rev: "v5.0.0"
     hooks:
       - id: check-added-large-files
       - id: check-docstring-first
@@ -63,4 +63,5 @@ repos:
     hooks:
       - id: mypy
         exclude: ^(tests/)
-        additional_dependencies: [types-all]
+        additional_dependencies: []
+        args: ["--install-types", "--non-interactive", "--ignore-missing-imports"]
