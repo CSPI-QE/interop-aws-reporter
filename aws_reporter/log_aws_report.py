@@ -1,22 +1,28 @@
-import json
-import requests
+import subprocess
+import tempfile
 from typing import Any
 
+AWS_CLIENT_REGION = "us-east-1"
 
-def send_slack_message(message: str, webhook_url: str, logger: Any) -> None:
-    try:
-        if webhook_url:
-            slack_data = {"text": message}
-            logger.info(f"Sending message to slack: {message}")
-            response = requests.post(
-                webhook_url,
-                data=json.dumps(slack_data),
-                headers={"Content-Type": "application/json"},
-            )
-            if response.status_code != 200:
-                logger.error(
-                    f"Request to slack returned an error {response.status_code} with the following message: {response.text}"
-                )
-            logger.info(f"Slack message sent successfully: {response.text}")
-    except Exception as ex:
-        logger.error(f"Failed to send slack message. error: {ex}")
+
+def dry_run(logger: Any) -> None:
+    # aws_access_id = os.environ.get("AWS_ACCESS_KEY","")
+    # aws_secret_key = os.environ.get("AWS_SECRET_KEY","")
+    # aws_client_region = os.environ.get("AWS_CLIENT_REGION",AWS_CLIENT_REGION)
+    #
+    # if not all(aws_access_id, aws_secret_key):
+    #     raise "AWS creds are missing!"
+
+    cloudwash_output = subprocess.run(["poetry", "run", "swach", "--help"], capture_output=True, text=True)
+
+    logger.info(cloudwash_output.stdout)
+
+    if cloudwash_output.returncode != 0:
+        raise Exception(f"CloudWash execution failed: {cloudwash_output.stderr}")
+    else:
+        # Create a temporary file to store the logs
+        with tempfile.NamedTemporaryFile(delete=False) as tmpfile:
+            tmpfile.write(cloudwash_output.stdout.encode())
+            tmpfile_path = tmpfile.name
+
+            logger.info(f"Output saved to: {tmpfile_path}")

@@ -1,4 +1,2 @@
 # aws-reporter tool
 TODO
-
-

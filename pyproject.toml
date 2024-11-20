@@ -16,10 +16,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-flask = "^3.0.3"
 python-simple-logger = "^1.0.40"
 requests = "^2.32.3"
-
+cloudwatch = "^1.2.1"
 
 [build-system]
 requires = ["poetry-core"]
