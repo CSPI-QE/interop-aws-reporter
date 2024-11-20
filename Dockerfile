@@ -13,4 +13,4 @@ COPY pyproject.toml poetry.lock* /interop_aws_reporter/
 
 
 # ENTRYPOINT ["aws-reporter"]
-CMD ["poetry", "run", "python", "aws_reporter/app.py"]
+CMD ["poetry", "run", "python", "interop_aws_reporter/app.py"]
