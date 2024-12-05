@@ -17,6 +17,8 @@ def send_slack_message(message: str, webhook_url: str, logger: Any) -> None:
                 logger.error(
                     f"Request to slack returned an error {response.status_code} with the following message: {response.text}"
                 )
+                raise
             logger.info(f"Slack message sent successfully: {response.text}")
     except Exception as ex:
         logger.error(f"Failed to send slack message. error: {ex}")
+        raise
