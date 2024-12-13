@@ -4,8 +4,6 @@ from typing import Any
 from utils import send_slack_message
 import os
 
-AWS_CLIENT_REGION = "us-east-1"
-
 
 def aws_report(logger: Any, message: str = "") -> None:
     if not message:
@@ -27,14 +25,7 @@ def aws_report(logger: Any, message: str = "") -> None:
 
 
 def dry_run(logger: Any) -> None:
-    # aws_access_id = os.environ.get("AWS_ACCESS_KEY","")
-    # aws_secret_key = os.environ.get("AWS_SECRET_KEY","")
-    # aws_client_region = os.environ.get("AWS_CLIENT_REGION",AWS_CLIENT_REGION)
-    #
-    # if not all(aws_access_id, aws_secret_key):
-    #     raise "AWS creds are missing!"
-
-    cloudwash_output = subprocess.run(["poetry", "run", "swach", "--help"], capture_output=True, text=True)
+    cloudwash_output = subprocess.run(["poetry", "run", "swach", "-d", "aws", "--ocps"], capture_output=True, text=True)
 
     if cloudwash_output.returncode != 0:
         raise Exception(f"CloudWash execution failed: {cloudwash_output.stderr}")
