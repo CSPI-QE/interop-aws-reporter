@@ -18,4 +18,6 @@ RUN chown -R 1001:1001 /interop_aws_reporter  \
     && chmod 745 -R /interop_aws_reporter
 USER 1001
 
+RUN touch /interop_aws_reporter/cleanup.log
+
 CMD ["poetry", "run", "python3", "interop_aws_reporter/app.py"]
