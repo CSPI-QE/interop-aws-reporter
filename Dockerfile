@@ -14,10 +14,8 @@ RUN python3 -m pip install pip --upgrade \
   && poetry config installer.max-workers 10 \
   && poetry install
 
-RUN chown -R 1001:1001 /interop_aws_reporter  \
-    && chmod 745 -R /interop_aws_reporter
-USER 1001
-
-RUN touch /interop_aws_reporter/cleanup.log
+RUN mkdir -p /tmp/ && chmod 777 /tmp/
+RUN touch /interop_aws_reporter/cleanup.log && chmod 777 /interop_aws_reporter/cleanup.log
+RUN touch /interop_aws_reporter/vcd_sdk.log && chmod 777 /interop_aws_reporter/vcd_sdk.log
 
 CMD ["poetry", "run", "python3", "interop_aws_reporter/app.py"]
