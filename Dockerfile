@@ -17,5 +17,6 @@ RUN python3 -m pip install pip --upgrade \
 RUN mkdir -p /tmp/ && chmod 777 /tmp/
 RUN touch /interop_aws_reporter/cleanup.log && chmod 777 /interop_aws_reporter/cleanup.log
 RUN touch /interop_aws_reporter/vcd_sdk.log && chmod 777 /interop_aws_reporter/vcd_sdk.log
+RUN touch /interop_aws_reporter/cleanup_resource_AWS.html && chmod 777 /interop_aws_reporter/cleanup_resource_AWS.html
 
 CMD ["poetry", "run", "python3", "interop_aws_reporter/app.py"]
