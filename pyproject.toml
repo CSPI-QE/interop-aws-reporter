@@ -19,6 +19,7 @@ python = "^3.11"
 python-simple-logger = "^1.0.40"
 requests = "^2.32.3"
 cloudwash = "*"
+slack-sdk = "^3.34.0"
 
 [build-system]
 requires = ["poetry-core"]

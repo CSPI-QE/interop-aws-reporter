@@ -1,11 +1,10 @@
 import subprocess
-import tempfile
 from typing import Any
-from utils import send_slack_message
+from utils import send_slack_message, send_log_file
 import os
 
 
-def aws_report(logger: Any, message: str = "") -> None:
+def aws_report_message(logger: Any, message: str = "") -> None:
     if not message:
         message = (
             "Hello :wave:, here is the weekly run report for [...] .\nAWS Reporting is cool! (sent from Openshift-Ci)"
@@ -30,15 +29,13 @@ def dry_run(logger: Any) -> None:
     if cloudwash_output.returncode != 0:
         raise Exception(f"CloudWash execution failed: {cloudwash_output.stderr}")
     else:
-        swach_output = cloudwash_output.stdout
+        cleanup_log_path = "cleanup_resource_AWS.html"
+        if os.path.exists(cleanup_log_path):
+            # with open(cleanup_log_path) as log:
+            #     print(log.read())
 
-        logger.info(swach_output)
-
-        # Create a temporary file to store the logs
-        with tempfile.NamedTemporaryFile(delete=False) as tmpfile:
-            tmpfile.write(swach_output.encode())
-            tmpfile_path = tmpfile.name
-
-            message = f"Output saved to: {tmpfile_path}"
+            # logger.info(cloudwash_output.stderr)
+            message = f"Output saved to: {cleanup_log_path}"
             logger.info(message)
-            aws_report(logger=logger, message=message)
+            # aws_report_message(logger=logger, message=message)
+            send_log_file(logger=logger)
