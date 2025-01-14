@@ -18,7 +18,7 @@ def send_slack_message(message: str, webhook_url: str, logger: Any) -> None:
                 logger.error(
                     f"Request to slack returned an error {response.status_code} with the following message: {response.text}"
                 )
-                raise
+                exit(1)
             logger.info(f"Slack message sent successfully: {response.text}")
     except Exception as ex:
         logger.error(f"Failed to send slack message. error: {ex}")
@@ -33,7 +33,7 @@ def aws_report_message_with_webhook(logger: Any, message: str = "") -> None:
     slack_webhook_url = os.environ.get("SLACK_WEBHOOK_URL")
     if not slack_webhook_url:
         logger.error("Missing env var. SLACK_WEBHOOK_URL is required.")
-        raise
+        exit(1)
 
     if slack_webhook_url:
         send_slack_message(

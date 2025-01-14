@@ -16,7 +16,8 @@ def execute_dry_run(logger: Any) -> None:
             message = f"Output saved to: {cleanup_log_path}"
             logger.info(message)
         else:
-            raise logger.error("Couldn't find cleanup output log!")
+            logger.error("Couldn't find cleanup output log!")
+            exit(1)
 
 
 def send_log_file_with_bot(logger: Any) -> None:
@@ -26,12 +27,11 @@ def send_log_file_with_bot(logger: Any) -> None:
     channel_id = os.environ.get("CHANNEL_ID")
     if not channel_id:
         logger.error("Missing env var. CHANNEL_ID is required.")
-        raise
-
+        exit(1)
     slack_bot_token = os.environ.get("SLACK_BOT_TOKEN")
     if not slack_bot_token:
         logger.error("Missing env var. SLACK_BOT_TOKEN is required.")
-        raise
+        exit(1)
 
     try:
         client = WebClient(token=slack_bot_token)
