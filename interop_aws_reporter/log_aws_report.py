@@ -21,8 +21,7 @@ def execute_dry_run(logger: Any) -> None:
 
 
 def send_log_file_with_bot(logger: Any) -> None:
-    # file_name = "./cleanup_resource_AWS.html"
-    file_name = "./cleanup.log"
+    file_name = "./cleanup_resource_AWS.html"
     # ID of channel to upload file to
     channel_id = os.environ.get("CHANNEL_ID")
     if not channel_id:
