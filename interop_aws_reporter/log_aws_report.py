@@ -20,8 +20,11 @@ def execute_dry_run(logger: Any) -> None:
             exit(1)
 
 
-def send_log_file_with_bot(logger: Any) -> None:
+def send_log_file_with_bot(logger: Any, message: str = "") -> None:
     file_name = "./cleanup_resource_AWS.html"
+    if not message:
+        message = "Here's cloudwash weekly cleanup log file :smile:\n*Watch report using: * `Open in new window`"
+
     # ID of channel to upload file to
     channel_id = os.environ.get("CHANNEL_ID")
     if not channel_id:
@@ -42,7 +45,7 @@ def send_log_file_with_bot(logger: Any) -> None:
         # Post cleanup log file in the Channel
         result = client.files_upload_v2(
             channel=channel_id,
-            initial_comment="Here's cloudwash cleanup log file :smile:",
+            initial_comment=message,
             file=file_name,
         )
         # Log the result
