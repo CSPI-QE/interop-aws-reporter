@@ -2,8 +2,6 @@ import json
 import requests
 import os
 from typing import Any
-from slack_sdk import WebClient
-from slack_sdk.errors import SlackApiError
 
 
 def send_slack_message(message: str, webhook_url: str, logger: Any) -> None:
@@ -27,38 +25,20 @@ def send_slack_message(message: str, webhook_url: str, logger: Any) -> None:
         raise
 
 
-def send_log_file(logger: Any) -> None:
-    # file_name = "./cleanup_resource_AWS.html"
-    file_name = "./cleanup.log"
-    # ID of channel to upload file to
-    channel_id = os.environ.get("CHANNEL_ID")
-    if not channel_id:
-        logger.error("Missing env var. CHANNEL_ID is required.")
-        raise
-
-    slack_bot_token = os.environ.get("SLACK_BOT_TOKEN")
-    if not slack_bot_token:
-        logger.error("Missing env var. SLACK_BOT_TOKEN is required.")
-        raise
-
-    try:
-        client = WebClient(token=slack_bot_token)
-    except:
-        logger.error("Couldn't get SlackAPI client, please check token value.")
-        raise
-
-    try:
-        # Post cleanup log file in the Channel
-        result = client.files_upload_v2(
-            channel=channel_id,
-            initial_comment="Here's cloudwash cleanup log file :smile:",
-            file=file_name,
+def aws_report_message_with_webhook(logger: Any, message: str = "") -> None:
+    if not message:
+        message = (
+            "Hello :wave:, here is the weekly run report for [...] .\nAWS Reporting is cool! (sent from Openshift-Ci)"
         )
-        # Log the result
-        logger.info(result)
-
-    except SlackApiError as e:
-        logger.error("Error uploading file: {}".format(e))
+    slack_webhook_url = os.environ.get("SLACK_WEBHOOK_URL")
+    if not slack_webhook_url:
+        logger.error("Missing env var. SLACK_WEBHOOK_URL is required.")
         raise
 
-    logger.info("Message sent successfully")
+    if slack_webhook_url:
+        send_slack_message(
+            message=message,
+            webhook_url=slack_webhook_url,
+            logger=logger,
+        )
+    logger.info("Message sent")
