@@ -43,15 +43,12 @@ def send_log_file_with_bot(logger: Any, message: str = "") -> None:
 
     try:
         # Post cleanup log file in the Channel
-        result = client.files_upload_v2(
+        client.files_upload_v2(
             channel=channel_id,
             initial_comment=message,
             file=file_name,
         )
-        # Log the result
-        logger.info(result)
+        logger.info("Message sent successfully")
     except SlackApiError as e:
         logger.error("Error uploading file: {}".format(e))
         raise
-
-    logger.info("Message sent successfully")
