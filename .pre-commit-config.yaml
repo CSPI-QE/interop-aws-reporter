@@ -64,4 +64,4 @@ repos:
       - id: mypy
         exclude: ^(tests/)
         additional_dependencies: []
-        args: ["--ignore-missing-imports"]
+        args: ["--ignore-missing-imports", "--config-file=./pyproject.toml"]
