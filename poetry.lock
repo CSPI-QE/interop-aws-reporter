@@ -1836,13 +1836,13 @@ stevedore = ">=2.0.1"
 
 [[package]]
 name = "cloudwash"
-version = "2.0.1"
+version = "2.1.0"
 description = "The cloud resources cleanup utility"
 optional = false
 python-versions = "*"
 files = [
-    {file = "cloudwash-2.0.1-py3-none-any.whl", hash = "sha256:fd03c82046c43b1adda36bb5c9ebf142979ce1854b2ae1fef813fa01946da34f"},
-    {file = "cloudwash-2.0.1.tar.gz", hash = "sha256:583432842623d2a206b5bf15fb217cddc25d9c04293578ee45543b9999c3f224"},
+    {file = "cloudwash-2.1.0-py3-none-any.whl", hash = "sha256:660ea8a2db7aa6a76ae889ce40da11b253ae4acd5c024805dbddd917333591fc"},
+    {file = "cloudwash-2.1.0.tar.gz", hash = "sha256:61f2ffac4a8af454f3131a03e7ccf3014424089eb6ab175d7e7cb08652379db5"},
 ]
 
 [package.dependencies]
@@ -5581,4 +5581,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "3aee1ec0da4b9633f1833f094de74344ffa69823f951566fbc638131064d74d3"
+content-hash = "aafc671c962239ed3b97c12c5b5a5538d9cc8189fc04b976cd6fdeeaae4a3012"
