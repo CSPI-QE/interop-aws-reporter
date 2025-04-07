@@ -2,7 +2,7 @@
 
 A reporting tool project based on the [RedHatQE/cloudwash](https://github.com/RedHatQE/cloudwash) cli.
 
-This tool creates a Slack message report (attached HTML file), containing the data of OCP resources left in a given AWS account.
+This tool creates a Slack message report (with an attached HTML file), containing the data of OCP resources left in a given AWS account.
 
 Reporting is done directly to a [configured Slack channel](#slack-channel-configuration) using `SlackAPI` or a Slack Webhook url.
 
